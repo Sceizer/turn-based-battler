@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UnitStats" load_steps=4 format=3 uid="uid://cxnpvdkg8eo1s"]
+
+[ext_resource type="Resource" uid="uid://dcel43t4xys8w" path="res://skill_info/basic_attack.tres" id="1_ule0x"]
+[ext_resource type="Script" uid="uid://covx4n4h7syso" path="res://scripts/unit/unit_stats.gd" id="2_dqkcc"]
+[ext_resource type="Script" uid="uid://bfqnlaeijjieu" path="res://scripts/skills/skill.gd" id="3_xjbfe"]
+
+[resource]
+script = ExtResource("2_dqkcc")
+default_health = 100.0
+default_attack = 20.0
+default_defense = 20.0
+default_speed = 10.0
+default_skill = ExtResource("1_ule0x")
+metadata/_custom_type_script = "uid://covx4n4h7syso"

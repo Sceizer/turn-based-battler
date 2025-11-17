@@ -1,0 +1,75 @@
+[gd_scene load_steps=13 format=3 uid="uid://cv2neu86u6td"]
+
+[ext_resource type="PackedScene" uid="uid://wi27g17h0jka" path="res://TurnHandler.tscn" id="1_3dxm6"]
+[ext_resource type="PackedScene" uid="uid://dyo62kvalteum" path="res://base_unit.tscn" id="1_r0du0"]
+[ext_resource type="Resource" uid="uid://biu6k8fdc2g6g" path="res://unit_info/Humans/Archer/ArcherStats.tres" id="2_cm0pq"]
+[ext_resource type="PackedScene" uid="uid://vn7qh1ikpgn1" path="res://unit_info/Humans/Knight/Knight_Anim.tscn" id="2_uu6xs"]
+[ext_resource type="PackedScene" uid="uid://dnrf3jx4t7b5j" path="res://unit_info/Humans/Archer/Archer_Anim.tscn" id="4_lgr22"]
+[ext_resource type="Resource" uid="uid://vdyhxmq3hqde" path="res://unit_info/Humans/Knight/KnightStats.tres" id="5_trn2v"]
+[ext_resource type="Resource" uid="uid://d2wstt2prw4y0" path="res://unit_info/Undead/Archer/undead_archer_stats.tres" id="7_wkp8b"]
+[ext_resource type="PackedScene" uid="uid://cn0vdy4vb60wo" path="res://unit_info/Undead/Archer/undead_archer_anim.tscn" id="8_20pc6"]
+[ext_resource type="Resource" uid="uid://cxnpvdkg8eo1s" path="res://unit_info/Undead/Knight/undead_knight_stats.tres" id="9_5vvyt"]
+[ext_resource type="PackedScene" uid="uid://cx5lu12ojjgqt" path="res://unit_info/Undead/Knight/undead_knight_anim.tscn" id="10_c6i3y"]
+[ext_resource type="Script" uid="uid://bj1wwjndxpl31" path="res://turn_queue_ui.gd" id="11_20pc6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_20pc6"]
+outline_size = 5
+outline_color = Color(1, 0.22352941, 0.20392157, 1)
+
+[node name="root" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="TurnHandler" parent="." instance=ExtResource("1_3dxm6")]
+
+[node name="Holy Archer" parent="TurnHandler" instance=ExtResource("1_r0du0")]
+position = Vector2(-100, -100)
+scale = Vector2(3, 3)
+unit_stats = ExtResource("2_cm0pq")
+unit_anim_scene = ExtResource("4_lgr22")
+
+[node name="Holy Knight" parent="TurnHandler" instance=ExtResource("1_r0du0")]
+position = Vector2(-100, 100)
+scale = Vector2(3, 3)
+unit_stats = ExtResource("5_trn2v")
+unit_anim_scene = ExtResource("2_uu6xs")
+
+[node name="Demon Archer" parent="TurnHandler" instance=ExtResource("1_r0du0")]
+position = Vector2(100, 100)
+scale = Vector2(-3, 3)
+unit_stats = ExtResource("7_wkp8b")
+unit_anim_scene = ExtResource("8_20pc6")
+
+[node name="Demon Knight" parent="TurnHandler" instance=ExtResource("1_r0du0")]
+position = Vector2(100, -100)
+scale = Vector2(-3, 3)
+unit_stats = ExtResource("9_5vvyt")
+unit_anim_scene = ExtResource("10_c6i3y")
+
+[node name="Button" type="Button" parent="."]
+offset_left = -41.0
+offset_top = 151.0
+offset_right = 45.0
+offset_bottom = 182.0
+text = "Next Turn"
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+offset_left = -575.0
+offset_top = -230.0
+offset_right = 573.0
+offset_bottom = -206.99998
+alignment = 1
+script = ExtResource("11_20pc6")
+
+[node name="Label" type="Label" parent="Control/HBoxContainer"]
+layout_mode = 2
+text = "Hello"
+label_settings = SubResource("LabelSettings_20pc6")
+
+[connection signal="new_turn_order" from="TurnHandler" to="Control/HBoxContainer" method="display_turn_queue"]
+[connection signal="button_down" from="Button" to="TurnHandler" method="finish_turn"]

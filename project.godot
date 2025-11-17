@@ -1,0 +1,34 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Turn Based Battler"
+run/main_scene="uid://cv2neu86u6td"
+config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="res://icon.svg"
+
+[editor]
+
+version_control/plugin_name="GitPlugin"
+version_control/autoload_on_startup=true
+
+[file_customization]
+
+folder_colors={
+"res://scripts/skills/": "red",
+"res://scripts/stats/": "green",
+"res://scripts/turn_handling/": "blue",
+"res://scripts/unit/": "purple"
+}
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
