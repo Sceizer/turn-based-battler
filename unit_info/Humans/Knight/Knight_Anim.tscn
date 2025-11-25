@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://vn7qh1ikpgn1"]
+[gd_scene load_steps=8 format=3 uid="uid://vn7qh1ikpgn1"]
 
 [ext_resource type="Script" uid="uid://cxnton53pcwrw" path="res://scripts/unit/unit_anim.gd" id="1_omcfq"]
 [ext_resource type="Texture2D" uid="uid://bu61w1t6xpqda" path="res://art/sprites/MinifolksHumans/Outline/MiniSwordMan.png" id="2_2b3u4"]
@@ -35,9 +35,43 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3]
 }
 
+[sub_resource type="Animation" id="Animation_coigk"]
+resource_name = "attack"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [18, 19, 20, 21, 22, 23]
+}
+
+[sub_resource type="Animation" id="Animation_8ltfh"]
+resource_name = "hurt"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.09707302, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [24, 25, 26]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5pi23"]
 _data = {
 &"RESET": SubResource("Animation_1dbkq"),
+&"attack": SubResource("Animation_coigk"),
+&"hurt": SubResource("Animation_8ltfh"),
 &"idle": SubResource("Animation_2b3u4")
 }
 

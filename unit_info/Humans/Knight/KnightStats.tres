@@ -6,6 +6,7 @@
 
 [resource]
 script = ExtResource("2_spwh2")
+unit_name = "Knight"
 default_health = 200.0
 default_attack = 20.0
 default_defense = 25.0

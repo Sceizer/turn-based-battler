@@ -66,15 +66,15 @@ var max_value : float:
 		if base_value > max_value:
 			base_value = max_value
 		
-var modifiers : Array[StatModifier]
-var modified_value : float
+var _modifiers : Array[StatModifier]
+var _modifier_value : float
 
 
 func initialize(in_base : float= 0, in_min : float = FLOAT_MIN, in_max : float = FLOAT_MAX) -> void:
 	min_value = in_min
 	max_value = in_max
 	base_value = clampf(in_base, in_min, in_max)
-	modified_value = base_value	
+	_modifier_value = base_value	
 
 
 func get_base_value() -> float:
@@ -82,7 +82,7 @@ func get_base_value() -> float:
 
 
 func get_modified_value() -> float:
-	return modified_value
+	return _modifier_value
 
 
 func set_value_delta(delta : float) -> void:
@@ -94,21 +94,21 @@ func set_value_delta(delta : float) -> void:
 
 
 func apply_modifier(stat_modifier : StatModifier) -> void:
-	modifiers.append(stat_modifier)
+	_modifiers.append(stat_modifier)
 	calc_stat_modifiers()
 
 
 func remove_modifier(stat_modifier : StatModifier) -> void:
-	modifiers.erase(stat_modifier)
+	_modifiers.erase(stat_modifier)
 	calc_stat_modifiers()
 
 
 func calc_stat_modifiers() -> void:
-	var new_modified_value = base_value
-	for modifier in modifiers:
-		new_modified_value = modifier.apply_modifier(new_modified_value)
-	new_modified_value = clampf(new_modified_value, min_value, max_value)
+	var new_modifier_value = base_value
+	for modifier in _modifiers:
+		new_modifier_value = modifier.apply_modifier(new_modifier_value)
+	new_modifier_value = clampf(new_modifier_value, min_value, max_value)
 	
-	if new_modified_value != modified_value:
-		stat_changed.emit(modified_value, new_modified_value, new_modified_value > modified_value)
-		modified_value = new_modified_value
+	if new_modifier_value != _modifier_value:
+		stat_changed.emit(_modifier_value, new_modifier_value, new_modifier_value > _modifier_value)
+		_modifier_value = new_modifier_value

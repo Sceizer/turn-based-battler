@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://btw6eiq62yfjp"]
+
+[ext_resource type="Script" uid="uid://bplq11hpnunnl" path="res://scripts/battle_scene.gd" id="1_3h8of"]
+[ext_resource type="PackedScene" uid="uid://wvofllndeuup" path="res://scenes/battle/battle_slot.tscn" id="1_lghx1"]
+
+[node name="TestBattle" type="Node2D"]
+script = ExtResource("1_3h8of")
+
+[node name="PlayerSlotA" parent="." instance=ExtResource("1_lghx1")]
+position = Vector2(-100, 50)
+scale = Vector2(5, 5)
+
+[node name="PlayerSlotB" parent="." instance=ExtResource("1_lghx1")]
+position = Vector2(-400, 50)
+scale = Vector2(5, 5)
+
+[node name="PlayerSlotC" parent="." instance=ExtResource("1_lghx1")]
+position = Vector2(-250, -50)
+scale = Vector2(5, 5)
+
+[node name="EnemySlotA" parent="." instance=ExtResource("1_lghx1")]
+position = Vector2(100, 50)
+scale = Vector2(5, 5)
+direction = -1
+team = 1
+
+[node name="EnemySlotB" parent="." instance=ExtResource("1_lghx1")]
+position = Vector2(400, 50)
+scale = Vector2(5, 5)
+direction = -1
+team = 1
+
+[node name="EnemySlotC" parent="." instance=ExtResource("1_lghx1")]
+position = Vector2(250, -50)
+scale = Vector2(5, 5)
+direction = -1
+team = 1
+
+[node name="EnemySlotD" parent="." instance=ExtResource("1_lghx1")]
+position = Vector2(250, 150)
+scale = Vector2(5, 5)
+direction = -1
+team = 1

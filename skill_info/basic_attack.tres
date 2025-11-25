@@ -1,16 +1,29 @@
-[gd_resource type="Resource" script_class="Skill" load_steps=5 format=3 uid="uid://dcel43t4xys8w"]
+[gd_resource type="Resource" script_class="Skill" load_steps=8 format=3 uid="uid://dcel43t4xys8w"]
 
 [ext_resource type="Script" uid="uid://baks3j4muac8" path="res://scripts/skills/skill_effect.gd" id="1_3xiup"]
 [ext_resource type="Script" uid="uid://bxvvtyu8t4l17" path="res://scripts/skills/effects/deal_damage.gd" id="2_yh0l0"]
 [ext_resource type="Script" uid="uid://bfqnlaeijjieu" path="res://scripts/skills/skill.gd" id="3_ayxyn"]
+[ext_resource type="Script" uid="uid://d3ti83eghsmwn" path="res://scripts/skills/effects/play_animation.gd" id="3_yh0l0"]
+
+[sub_resource type="Resource" id="Resource_ayxyn"]
+script = ExtResource("3_yh0l0")
+animation_name = "attack"
+on_caster = true
+pause_until_finished = true
+metadata/_custom_type_script = "uid://d3ti83eghsmwn"
 
 [sub_resource type="Resource" id="Resource_euk82"]
 script = ExtResource("2_yh0l0")
 metadata/_custom_type_script = "uid://bxvvtyu8t4l17"
 
+[sub_resource type="Resource" id="Resource_yh0l0"]
+script = ExtResource("3_yh0l0")
+animation_name = "hurt"
+metadata/_custom_type_script = "uid://d3ti83eghsmwn"
+
 [resource]
 script = ExtResource("3_ayxyn")
-effects = Array[ExtResource("1_3xiup")]([SubResource("Resource_euk82")])
+effects = Array[ExtResource("1_3xiup")]([SubResource("Resource_ayxyn"), SubResource("Resource_euk82"), SubResource("Resource_yh0l0")])
 target_type = 1
 target_unit_type = 2
 metadata/_custom_type_script = "uid://bfqnlaeijjieu"

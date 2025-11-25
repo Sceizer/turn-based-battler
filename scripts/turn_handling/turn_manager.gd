@@ -2,6 +2,7 @@ class_name TurnManager extends Node
 
 signal new_turn_order(turn_order : Array[TurnNotifier])
 signal next_turn(next_in_order : TurnNotifier)
+signal on_tracker_removed(removed_tracker : TurnNotifier)
 
 const CURR_ACTIVE_TURN = "Current Active Turn"
 const TRACKER_REMAPPED_SPEEDS = "Tracker Remapped Speeds"
@@ -19,6 +20,22 @@ var current_turn : Dictionary= {
 var precalculated_turns : Array[Dictionary]
 
 var turn_order : Array[TurnNotifier]
+
+
+func load_trackers_from_array(trackers_to_load: Array) -> void:
+	active_trackers.assign(trackers_to_load.filter(func(child): return child is TurnNotifier))
+	active_trackers.sort_custom(func(trackA, trackB) : return trackA.get_speed() > trackB.get_speed())
+	
+	highest_speed = active_trackers[0].get_speed()
+	current_turn[CURR_ACTIVE_TURN] = active_trackers[0]
+	turn_order.append(active_trackers[0])
+	for tracker in active_trackers:
+		tracker.connect("on_finish_turn", finish_turn)
+		current_turn[TRACKER_REMAPPED_SPEEDS][tracker] = tracker.get_speed() / highest_speed
+		current_turn[INITIATIVE_TRACKERS][tracker] = current_turn[TRACKER_REMAPPED_SPEEDS][tracker]
+	
+	calc_turn_order_up_to_limit()
+	start_current_turn()
 
 
 func initialize() -> void:	
@@ -46,11 +63,23 @@ func finish_turn() -> void:
 	turn_order.pop_front()
 	calc_turn_order_up_to_limit()
 	start_current_turn()
+	
 
+func remove_tracker(tracker_to_remove: TurnNotifier) -> void:
+	var tracker_id = active_trackers.find(tracker_to_remove)
+	if tracker_id != -1:
+		active_trackers.remove_at(tracker_id)
+		calc_turn_order_up_to_limit(true)
+		on_tracker_removed.emit(tracker_to_remove)
+		
 
-func calc_turn_order_up_to_limit() -> void:
+func calc_turn_order_up_to_limit(erase_prev_order: bool= false) -> void:
+	if erase_prev_order:
+		precalculated_turns.clear()
+		turn_order.clear()
+		turn_order.append(current_turn[CURR_ACTIVE_TURN])
 	var prev_turn = precalculated_turns[precalculated_turns.size() - 1].duplicate(true) if not precalculated_turns.is_empty() else current_turn.duplicate(true)
-	while precalculated_turns.size() < predict_turn_amount:
+	while precalculated_turns.size() < predict_turn_amount - 1:
 		var curr_turn = prev_turn
 		curr_turn[INITIATIVE_TRACKERS][curr_turn[CURR_ACTIVE_TURN]] = 0.0
 		var fastest_time_to_ready = 999.0
@@ -69,7 +98,3 @@ func calc_turn_order_up_to_limit() -> void:
 		turn_order.append(curr_turn[CURR_ACTIVE_TURN])
 		prev_turn = curr_turn.duplicate(true)
 	new_turn_order.emit(turn_order)
-
-
-func _ready() -> void:
-	initialize()

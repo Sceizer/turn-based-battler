@@ -6,6 +6,7 @@
 
 [resource]
 script = ExtResource("2_dqkcc")
+unit_name = "Undead Knight"
 default_health = 100.0
 default_attack = 20.0
 default_defense = 20.0

@@ -6,6 +6,7 @@
 
 [resource]
 script = ExtResource("2_gexge")
+unit_name = "Undead Archer"
 default_health = 75.0
 default_attack = 20.0
 default_defense = 10.0

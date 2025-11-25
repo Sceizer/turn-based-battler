@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cx5lu12ojjgqt"]
+[gd_scene load_steps=8 format=3 uid="uid://cx5lu12ojjgqt"]
 
 [ext_resource type="Script" uid="uid://cxnton53pcwrw" path="res://scripts/unit/unit_anim.gd" id="1_i2ulc"]
 [ext_resource type="Texture2D" uid="uid://d0278jfbkjg2s" path="res://art/sprites/MinifolksUndead/Outline/MiniDeathKnight.png" id="2_fj834"]
@@ -35,9 +35,43 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3]
 }
 
+[sub_resource type="Animation" id="Animation_cd83w"]
+resource_name = "attack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [24, 25, 26, 27, 28]
+}
+
+[sub_resource type="Animation" id="Animation_70iw7"]
+resource_name = "hurt"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [40, 41]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5pi23"]
 _data = {
 &"RESET": SubResource("Animation_1dbkq"),
+&"attack": SubResource("Animation_cd83w"),
+&"hurt": SubResource("Animation_70iw7"),
 &"idle": SubResource("Animation_2b3u4")
 }
 
@@ -56,3 +90,5 @@ libraries = {
 &"": SubResource("AnimationLibrary_5pi23")
 }
 autoplay = "idle"
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

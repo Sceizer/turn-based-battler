@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=3 uid="uid://dae3rmlwj5ik1"]
+
+[ext_resource type="Script" uid="uid://xqay8gqhvyyg" path="res://scripts/ui/battle_ui.gd" id="1_d43ay"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d43ay"]
+bg_color = Color(0.96136767, 0.34483543, 0.25112858, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8xn5s"]
+bg_color = Color(0.60708565, 0.13592008, 0.07163114, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ib2kh"]
+bg_color = Color(0.9818303, 0.47889924, 0.392872, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_elpkr"]
+bg_color = Color(0.14723277, 0.62358606, 0.9793932, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bgiko"]
+bg_color = Color(0.013685883, 0.3693189, 0.6084069, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_keo60"]
+bg_color = Color(0.5180483, 0.76715446, 0.99653035, 1)
+
+[node name="BattleUi" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d43ay")
+metadata/_custom_type_script = "uid://xqay8gqhvyyg"
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -450.0
+offset_top = -220.0
+offset_right = 450.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -50.0
+offset_right = -75.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_d43ay")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8xn5s")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ib2kh")
+text = "Attack"
+
+[node name="Button2" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 75.0
+offset_top = -50.0
+offset_right = 175.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_elpkr")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bgiko")
+theme_override_styles/hover = SubResource("StyleBoxFlat_keo60")
+text = "Skip"
+
+[connection signal="pressed" from="Panel/Button" to="." method="_on_attack_press"]
+[connection signal="pressed" from="Panel/Button2" to="." method="_on_skip_pressed"]

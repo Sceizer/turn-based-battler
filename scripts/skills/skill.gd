@@ -1,5 +1,9 @@
 class_name Skill extends Resource
 
+
+signal skill_finished()
+
+
 enum TargetType {
 	SELF,
 	SINGLE,
@@ -22,3 +26,6 @@ enum TargetUnitType {
 func activate_skill(caster : Unit, targets : Array[Unit]) -> void:
 	for effect in effects:
 		effect.activate_effect(caster, targets)
+		if effect.effect_running:
+			await effect.skill_effect_finished
+	skill_finished.emit()

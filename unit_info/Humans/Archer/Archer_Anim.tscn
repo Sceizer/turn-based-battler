@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dnrf3jx4t7b5j"]
+[gd_scene load_steps=8 format=3 uid="uid://dnrf3jx4t7b5j"]
 
 [ext_resource type="Script" uid="uid://cxnton53pcwrw" path="res://scripts/unit/unit_anim.gd" id="1_k363h"]
 [ext_resource type="Texture2D" uid="uid://b60en7hjlsu36" path="res://art/sprites/MinifolksHumans/Outline/MiniArcherMan.png" id="2_j2am6"]
@@ -35,9 +35,42 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3]
 }
 
+[sub_resource type="Animation" id="Animation_wbmjp"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42]
+}
+
+[sub_resource type="Animation" id="Animation_87gp5"]
+resource_name = "hurt"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [55, 56, 57]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5pi23"]
 _data = {
 &"RESET": SubResource("Animation_1dbkq"),
+&"attack": SubResource("Animation_wbmjp"),
+&"hurt": SubResource("Animation_87gp5"),
 &"idle": SubResource("Animation_2b3u4")
 }
 

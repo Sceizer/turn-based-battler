@@ -1,6 +1,11 @@
 @abstract
 class_name SkillEffect extends Resource
 
+signal skill_effect_finished
 
-func activate_effect(caster : Unit, targets : Array[Unit]) -> void:
-	pass
+
+var effect_running: bool
+
+
+func activate_effect(_caster : Unit, _targets : Array[Unit]) -> void:
+	skill_effect_finished.emit()

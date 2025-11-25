@@ -29,6 +29,11 @@ folder_colors={
 "res://scripts/unit/": "purple"
 }
 
+[global_group]
+
+player=""
+enemy=""
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

@@ -1,0 +1,118 @@
+[gd_scene load_steps=19 format=3 uid="uid://cv2neu86u6td"]
+
+[ext_resource type="PackedScene" uid="uid://dae3rmlwj5ik1" path="res://scenes/battle/battle_ui.tscn" id="1_lqku3"]
+[ext_resource type="PackedScene" uid="uid://wi27g17h0jka" path="res://scenes/turn_handling/TurnHandler.tscn" id="1_r1iq1"]
+[ext_resource type="Resource" uid="uid://biu6k8fdc2g6g" path="res://unit_info/Humans/Archer/ArcherStats.tres" id="3_o688g"]
+[ext_resource type="PackedScene" uid="uid://dnrf3jx4t7b5j" path="res://unit_info/Humans/Archer/Archer_Anim.tscn" id="4_oypxd"]
+[ext_resource type="Resource" uid="uid://vdyhxmq3hqde" path="res://unit_info/Humans/Knight/KnightStats.tres" id="5_bn5yp"]
+[ext_resource type="PackedScene" uid="uid://vn7qh1ikpgn1" path="res://unit_info/Humans/Knight/Knight_Anim.tscn" id="6_yrbu8"]
+[ext_resource type="Resource" uid="uid://d2wstt2prw4y0" path="res://unit_info/Undead/Archer/undead_archer_stats.tres" id="7_cqt2a"]
+[ext_resource type="PackedScene" uid="uid://btw6eiq62yfjp" path="res://scenes/battle/test_battle.tscn" id="8_edlx1"]
+[ext_resource type="PackedScene" uid="uid://cn0vdy4vb60wo" path="res://unit_info/Undead/Archer/undead_archer_anim.tscn" id="8_po07q"]
+[ext_resource type="Resource" uid="uid://cxnpvdkg8eo1s" path="res://unit_info/Undead/Knight/undead_knight_stats.tres" id="9_iwtrj"]
+[ext_resource type="PackedScene" uid="uid://cx5lu12ojjgqt" path="res://unit_info/Undead/Knight/undead_knight_anim.tscn" id="10_x6xgl"]
+[ext_resource type="Script" uid="uid://dgq1581wscps8" path="res://scripts/unit/controllers/AI_random_controller.gd" id="11_o688g"]
+[ext_resource type="PackedScene" uid="uid://bigo8ravh655n" path="res://scenes/controllers/AI_controller_random.tscn" id="11_oypxd"]
+[ext_resource type="Script" uid="uid://bj1wwjndxpl31" path="res://scripts/turn_handling/turn_queue_ui.gd" id="11_wo46c"]
+[ext_resource type="Script" uid="uid://cg20k38y6c5og" path="res://scripts/battle_manager.gd" id="12_pmyim"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_20pc6"]
+outline_size = 5
+outline_color = Color(1, 0.22352941, 0.20392157, 1)
+
+[sub_resource type="PackedScene" id="PackedScene_bn5yp"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("AiControllerRandom", "Node", "script", "metadata/_custom_type_script"),
+"node_count": 1,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 2, 2, 0, 3, 1, 0),
+"variants": [ExtResource("11_o688g"), "uid://dgq1581wscps8"],
+"version": 3
+}
+
+[sub_resource type="PackedScene" id="PackedScene_yrbu8"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("AiControllerRandom", "Node", "script", "metadata/_custom_type_script"),
+"node_count": 1,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 2, 2, 0, 3, 1, 0),
+"variants": [ExtResource("11_o688g"), "uid://dgq1581wscps8"],
+"version": 3
+}
+
+[node name="root" type="Node"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="BattleUi" parent="Camera2D" node_paths=PackedStringArray("battle_scene") instance=ExtResource("1_lqku3")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 335.0
+offset_bottom = 335.0
+grow_horizontal = 1
+grow_vertical = 1
+battle_scene = NodePath("../../TestBattle")
+
+[node name="TurnHandler" parent="." instance=ExtResource("1_r1iq1")]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+offset_left = -575.0
+offset_top = -230.0
+offset_right = 573.0
+offset_bottom = -206.99998
+alignment = 1
+script = ExtResource("11_wo46c")
+
+[node name="Label" type="Label" parent="Control/HBoxContainer"]
+layout_mode = 2
+text = "Hello"
+label_settings = SubResource("LabelSettings_20pc6")
+
+[node name="BattleManager" type="Node" parent="." node_paths=PackedStringArray("turn_manager", "background")]
+script = ExtResource("12_pmyim")
+load_in_fighters = Array[Dictionary]([{
+"anim": ExtResource("6_yrbu8"),
+"controller": null,
+"stats": ExtResource("5_bn5yp"),
+"team": 0
+}, {
+"anim": ExtResource("4_oypxd"),
+"controller": null,
+"stats": ExtResource("3_o688g"),
+"team": 0
+}, {
+"anim": ExtResource("8_po07q"),
+"controller": ExtResource("11_oypxd"),
+"stats": ExtResource("7_cqt2a"),
+"team": 1
+}, {
+"anim": ExtResource("8_po07q"),
+"controller": SubResource("PackedScene_bn5yp"),
+"stats": ExtResource("7_cqt2a"),
+"team": 1
+}, {
+"anim": ExtResource("10_x6xgl"),
+"controller": SubResource("PackedScene_yrbu8"),
+"stats": ExtResource("9_iwtrj"),
+"team": 1
+}])
+turn_manager = NodePath("../TurnHandler")
+background = NodePath("../TestBattle")
+metadata/_custom_type_script = "uid://cg20k38y6c5og"
+
+[node name="TestBattle" parent="." groups=["enemy", "player"] instance=ExtResource("8_edlx1")]
+
+[connection signal="new_turn_order" from="TurnHandler" to="Control/HBoxContainer" method="display_turn_queue"]
+[connection signal="next_turn" from="TurnHandler" to="Camera2D/BattleUi" method="_on_next_turn"]

@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://wvofllndeuup"]
+
+[ext_resource type="Script" uid="uid://cihcum2jhgr1o" path="res://scripts/battle_slot.gd" id="1_d7njd"]
+[ext_resource type="Script" uid="uid://cwyqsbymy0rxc" path="res://scripts/ui/stat_ui_slider.gd" id="2_5dwgv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d7njd"]
+
+[sub_resource type="Gradient" id="Gradient_5dwgv"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tox7i"]
+gradient = SubResource("Gradient_5dwgv")
+width = 32
+height = 8
+
+[sub_resource type="Gradient" id="Gradient_tox7i"]
+colors = PackedColorArray(1, 0, 0, 1, 0, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_c7wss"]
+gradient = SubResource("Gradient_tox7i")
+width = 32
+height = 8
+
+[node name="BattleSlot" type="Marker2D"]
+scale = Vector2(5, 5)
+script = ExtResource("1_d7njd")
+
+[node name="UICollision" type="StaticBody2D" parent="."]
+input_pickable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UICollision"]
+shape = SubResource("RectangleShape2D_d7njd")
+
+[node name="StatUISlider" type="TextureProgressBar" parent="."]
+visible = false
+offset_left = -16.199999
+offset_top = -24.8
+offset_right = 15.800001
+offset_bottom = -16.8
+value = 100.0
+texture_under = SubResource("GradientTexture2D_tox7i")
+texture_progress = SubResource("GradientTexture2D_c7wss")
+script = ExtResource("2_5dwgv")
+stat_name = "HEALTH"
+metadata/_custom_type_script = "uid://cwyqsbymy0rxc"
+
+[connection signal="occupier_changed" from="." to="StatUISlider" method="_on_battle_slot_occupier_changed"]
+[connection signal="input_event" from="UICollision" to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="UICollision" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UICollision" to="." method="_on_mouse_exited"]
